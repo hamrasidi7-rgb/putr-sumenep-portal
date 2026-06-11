@@ -52,19 +52,18 @@ export default function HeroCarousel() {
   const slide = slides[current]
 
   return (
-    <section className="relative overflow-hidden bg-[#080808]">
+    <section className="relative overflow-hidden bg-[#f0f2f5]">
       {/* ── Background cover art ── */}
       <div className="absolute inset-0 z-0">
         <Image
           src={slide.cover}
           alt="Background hero"
           fill
-          className="object-cover object-center opacity-20 transition-opacity duration-700"
+          className="object-cover object-center opacity-10 transition-opacity duration-700"
           priority
         />
-        {/* Dark gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/70 via-[#0a0a0a]/50 to-[#0a0a0a]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/90 via-transparent to-[#0a0a0a]/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#f0f2f5]/70 via-[#f0f2f5]/50 to-[#f0f2f5]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#f0f2f5]/90 via-transparent to-[#f0f2f5]/30" />
       </div>
 
       {/* ── Content ── */}
@@ -73,72 +72,70 @@ export default function HeroCarousel() {
         {/* MOBILE layout */}
         <div className="lg:hidden py-8 pb-10">
           {/* Gov header badge */}
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-7 h-7 rounded-full overflow-hidden border border-[rgba(224,168,46,0.3)] flex-shrink-0">
-              <Shield size={16} className="text-[#E0A82E] m-auto mt-1" />
+          <div className="flex items-center gap-2 mb-5">
+            <div className="w-7 h-7 rounded-full border border-[rgba(224,168,46,0.3)] flex items-center justify-center flex-shrink-0">
+              <Shield size={14} className="text-[#E0A82E]" />
             </div>
-            <div className="text-[9px] leading-tight text-gray-400">
+            <div className="text-[9px] leading-tight text-gray-500">
               <p className="font-semibold text-[#E0A82E] uppercase tracking-widest text-[8px]">{slide.tag}</p>
               <p>{slide.subtitle}</p>
             </div>
           </div>
 
-          {/* Kadis photo – floated right */}
-          <div className="relative mb-2">
-            <div className="absolute right-0 top-0 w-40 h-52 z-10">
+          {/* Flex row: FOTO KIRI — teks kanan */}
+          <div className="flex gap-4 items-start mb-5">
+            {/* Kadis photo – KIRI */}
+            <div className="relative w-28 h-44 flex-shrink-0">
               <Image
                 src={slide.image}
                 alt="Kepala Dinas PUTR Sumenep"
                 fill
-                className="object-cover object-top"
-                style={{ maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)' }}
+                className="object-cover object-top rounded-2xl"
+                style={{
+                  maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+                }}
               />
             </div>
-            {/* Title */}
+
+            {/* Teks – KANAN */}
             <div
-              className={`transition-all duration-500 ${animating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}
+              className={`flex-1 transition-all duration-500 ${animating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}
             >
-              <h1 className="text-5xl font-extrabold leading-[0.92] tracking-tight">
+              <h1 className="text-4xl font-extrabold leading-[0.92] tracking-tight">
                 {slide.title.map((word, i) => (
                   <span
                     key={i}
-                    className={`block ${
-                      slide.titleGold[i]
-                        ? 'text-gold-gradient'
-                        : 'text-white'
-                    }`}
+                    className={`block ${slide.titleGold[i] ? 'text-gold-gradient' : 'text-gray-900'}`}
                   >
                     {word}
                   </span>
                 ))}
               </h1>
-              <p className="mt-3 text-xs text-gray-300 leading-relaxed max-w-[200px]">
+              <p className="mt-2 text-[10px] text-gray-500 leading-relaxed">
                 {slide.desc}
               </p>
-              <div className="flex gap-2 mt-5">
-                <button className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-[#E0A82E] text-[#E0A82E] text-xs font-semibold hover:bg-[rgba(224,168,46,0.08)] transition-all">
-                  <BookOpen size={13} />
-                  Jelajahi Buku
+              <div className="flex gap-2 mt-4 flex-wrap">
+                <button className="flex items-center gap-1 px-3 py-1.5 rounded-xl border border-[#E0A82E] text-[#E0A82E] text-[10px] font-semibold hover:bg-[rgba(224,168,46,0.08)] transition-all">
+                  <BookOpen size={11} />
+                  Jelajahi
                 </button>
-                <button className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gold-gradient text-black text-xs font-bold shadow-gold animate-pulse-gold">
-                  <Bot size={13} />
-                  Tanya AI PUTR
+                <button className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gold-gradient text-black text-[10px] font-bold shadow-gold animate-pulse-gold">
+                  <Bot size={11} />
+                  Tanya AI
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Spacer for photo */}
-          <div className="h-12" />
-
           {/* Carousel dots */}
-          <div className="flex items-center gap-2 mt-4">
+          <div className="flex items-center gap-2">
             {slides.map((_, i) => (
               <button
                 key={i}
                 onClick={() => goTo(i)}
                 className={`h-1.5 rounded-full transition-all ${
-                  i === current ? 'w-6 bg-[#E0A82E]' : 'w-1.5 bg-gray-600'
+                  i === current ? 'w-6 bg-[#E0A82E]' : 'w-1.5 bg-gray-300'
                 }`}
               />
             ))}
@@ -147,34 +144,73 @@ export default function HeroCarousel() {
 
         {/* DESKTOP layout */}
         <div className="hidden lg:grid lg:grid-cols-2 lg:gap-12 lg:items-center min-h-[70vh] py-16">
-          {/* Left: text */}
+
+          {/* KIRI: foto kadis + floating cards */}
+          <div className="relative flex items-end justify-center h-[60vh]">
+            {/* Glow behind photo */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full bg-[#E0A82E] opacity-10 blur-3xl" />
+
+            {/* Kadis photo */}
+            <div
+              className={`relative w-80 h-[520px] transition-all duration-700 ${animating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
+            >
+              <Image
+                src={slide.image}
+                alt="Kepala Dinas PUTR Sumenep"
+                fill
+                className="object-cover object-top"
+                style={{
+                  maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
+                }}
+                priority
+              />
+            </div>
+
+            {/* Floating stat badge – atas kiri */}
+            <div className="absolute top-8 left-0 card-glass px-4 py-3 rounded-2xl shadow-card animate-float">
+              <p className="text-[10px] text-gray-500 mb-0.5">Jalan Kabupaten</p>
+              <p className="text-xl font-extrabold text-gold-gradient">1.256,45</p>
+              <p className="text-[10px] text-gray-500">km terdata</p>
+            </div>
+
+            {/* Floating badge – bawah kanan */}
+            <div
+              className="absolute bottom-16 right-0 card-glass px-4 py-3 rounded-2xl shadow-card animate-float"
+              style={{ animationDelay: '1.5s' }}
+            >
+              <p className="text-[10px] text-gray-500 mb-0.5">Jembatan Aktif</p>
+              <p className="text-xl font-extrabold text-gold-gradient">312</p>
+              <p className="text-[10px] text-gray-500">unit terpantau</p>
+            </div>
+          </div>
+
+          {/* KANAN: teks */}
           <div
             className={`transition-all duration-500 ${animating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}
           >
             {/* Gov badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(224,168,46,0.25)] bg-[rgba(224,168,46,0.06)] mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(224,168,46,0.3)] bg-[rgba(224,168,46,0.06)] mb-6">
               <Shield size={12} className="text-[#E0A82E]" />
               <span className="text-[10px] font-semibold text-[#E0A82E] uppercase tracking-widest">
                 {slide.tag}
               </span>
             </div>
 
-            <p className="text-sm text-gray-400 mb-2 font-medium">{slide.subtitle}</p>
+            <p className="text-sm text-gray-500 mb-2 font-medium">{slide.subtitle}</p>
 
             <h1 className="text-7xl xl:text-8xl font-extrabold leading-[0.9] tracking-tight mb-6">
               {slide.title.map((word, i) => (
                 <span
                   key={i}
-                  className={`block ${
-                    slide.titleGold[i] ? 'text-gold-gradient' : 'text-white'
-                  }`}
+                  className={`block ${slide.titleGold[i] ? 'text-gold-gradient' : 'text-gray-900'}`}
                 >
                   {word}
                 </span>
               ))}
             </h1>
 
-            <p className="text-base text-gray-300 leading-relaxed max-w-sm mb-8">
+            <p className="text-base text-gray-600 leading-relaxed max-w-sm mb-8">
               {slide.desc}
             </p>
 
@@ -193,7 +229,7 @@ export default function HeroCarousel() {
             <div className="flex items-center gap-3 mt-10">
               <button
                 onClick={prev}
-                className="w-9 h-9 rounded-full border border-[rgba(224,168,46,0.2)] flex items-center justify-center text-gray-400 hover:border-[#E0A82E] hover:text-[#E0A82E] transition-all"
+                className="w-9 h-9 rounded-full border border-[rgba(224,168,46,0.25)] flex items-center justify-center text-gray-500 hover:border-[#E0A82E] hover:text-[#E0A82E] transition-all"
               >
                 <ChevronLeft size={16} />
               </button>
@@ -203,61 +239,20 @@ export default function HeroCarousel() {
                     key={i}
                     onClick={() => goTo(i)}
                     className={`h-1.5 rounded-full transition-all ${
-                      i === current ? 'w-8 bg-[#E0A82E]' : 'w-2 bg-gray-600 hover:bg-gray-400'
+                      i === current ? 'w-8 bg-[#E0A82E]' : 'w-2 bg-gray-300 hover:bg-gray-400'
                     }`}
                   />
                 ))}
               </div>
               <button
                 onClick={next}
-                className="w-9 h-9 rounded-full border border-[rgba(224,168,46,0.2)] flex items-center justify-center text-gray-400 hover:border-[#E0A82E] hover:text-[#E0A82E] transition-all"
+                className="w-9 h-9 rounded-full border border-[rgba(224,168,46,0.25)] flex items-center justify-center text-gray-500 hover:border-[#E0A82E] hover:text-[#E0A82E] transition-all"
               >
                 <ChevronRight size={16} />
               </button>
             </div>
           </div>
 
-          {/* Right: kadis photo + floating card */}
-          <div className="relative flex items-end justify-center h-[60vh]">
-            {/* Glow behind photo */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full bg-[#E0A82E] opacity-10 blur-3xl" />
-
-            {/* Kadis photo */}
-            <div
-              className={`relative w-80 h-[520px] transition-all duration-700 ${animating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
-            >
-              <Image
-                src={slide.image}
-                alt="Kepala Dinas PUTR Sumenep"
-                fill
-                className="object-cover object-top"
-                style={{
-                  maskImage:
-                    'linear-gradient(to bottom, black 70%, transparent 100%)',
-                  WebkitMaskImage:
-                    'linear-gradient(to bottom, black 70%, transparent 100%)',
-                }}
-                priority
-              />
-            </div>
-
-            {/* Floating stat badge */}
-            <div className="absolute top-8 right-0 card-glass px-4 py-3 rounded-2xl shadow-card animate-float">
-              <p className="text-[10px] text-gray-400 mb-0.5">Jalan Kabupaten</p>
-              <p className="text-xl font-extrabold text-gold-gradient">1.256,45</p>
-              <p className="text-[10px] text-gray-400">km terdata</p>
-            </div>
-
-            {/* Floating badge 2 */}
-            <div
-              className="absolute bottom-16 left-0 card-glass px-4 py-3 rounded-2xl shadow-card animate-float"
-              style={{ animationDelay: '1.5s' }}
-            >
-              <p className="text-[10px] text-gray-400 mb-0.5">Jembatan Aktif</p>
-              <p className="text-xl font-extrabold text-gold-gradient">312</p>
-              <p className="text-[10px] text-gray-400">unit terpantau</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>

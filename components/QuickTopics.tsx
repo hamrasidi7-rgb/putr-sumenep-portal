@@ -18,7 +18,7 @@ export default function QuickTopics() {
           <h2 className="text-sm lg:text-base font-bold text-[#E0A82E] tracking-wide">
             AI PUTR SUMENEP
           </h2>
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-500">
             Halo! Saya AI PUTR Sumenep. Silakan pilih topik atau ketik pertanyaan Anda.
           </p>
         </div>
@@ -31,7 +31,7 @@ export default function QuickTopics() {
             key={id}
             className="
               group card-dark p-3 lg:p-4 rounded-2xl flex flex-col items-center gap-2 text-center
-              hover:border-[rgba(224,168,46,0.4)] hover:bg-[#161616] hover:-translate-y-0.5
+              hover:border-[rgba(224,168,46,0.4)] hover:bg-gray-50 hover:-translate-y-0.5
               hover:shadow-gold transition-all duration-200
             "
           >
@@ -41,7 +41,7 @@ export default function QuickTopics() {
             >
               <Icon size={20} style={{ color }} strokeWidth={1.8} />
             </div>
-            <span className="text-[10px] lg:text-xs text-gray-300 group-hover:text-white leading-tight font-medium">
+            <span className="text-[10px] lg:text-xs text-gray-600 group-hover:text-gray-900 leading-tight font-medium">
               {label}
             </span>
           </button>

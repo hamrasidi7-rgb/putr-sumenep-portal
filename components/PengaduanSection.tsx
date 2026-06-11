@@ -7,12 +7,12 @@ export default function PengaduanSection() {
       {/* Header row */}
       <div className="flex items-center justify-between mb-4 lg:mb-6">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-[rgba(239,68,68,0.15)] border border-[rgba(239,68,68,0.3)] flex items-center justify-center">
+          <div className="w-7 h-7 rounded-lg bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.25)] flex items-center justify-center">
             <AlertTriangle size={14} className="text-red-400" />
           </div>
           <div>
-            <h2 className="text-sm lg:text-base font-bold text-white">Pengaduan</h2>
-            <p className="text-[10px] lg:text-xs text-gray-400 hidden sm:block">
+            <h2 className="text-sm lg:text-base font-bold text-gray-900">Pengaduan</h2>
+            <p className="text-[10px] lg:text-xs text-gray-500 hidden sm:block">
               Laporkan keluhan Anda terkait infrastruktur di lingkungan Anda mulai dari:
             </p>
           </div>
@@ -24,8 +24,8 @@ export default function PengaduanSection() {
         </button>
       </div>
 
-      {/* Description (mobile only, below header) */}
-      <p className="text-[10px] text-gray-400 sm:hidden mb-4">
+      {/* Description (mobile only) */}
+      <p className="text-[10px] text-gray-500 sm:hidden mb-4">
         Laporkan keluhan terkait infrastruktur di lingkungan Anda:
       </p>
 
@@ -36,7 +36,7 @@ export default function PengaduanSection() {
             key={id}
             className="
               group card-dark p-3 lg:p-4 rounded-2xl flex flex-col items-center gap-2 text-center
-              hover:border-[rgba(224,168,46,0.35)] hover:bg-[#161616] hover:-translate-y-0.5
+              hover:border-[rgba(224,168,46,0.35)] hover:bg-gray-50 hover:-translate-y-0.5
               transition-all duration-200
             "
           >
@@ -46,7 +46,7 @@ export default function PengaduanSection() {
             >
               <Icon size={18} style={{ color }} strokeWidth={1.8} />
             </div>
-            <span className="text-[9px] lg:text-xs text-gray-300 group-hover:text-white leading-tight font-medium">
+            <span className="text-[9px] lg:text-xs text-gray-600 group-hover:text-gray-900 leading-tight font-medium">
               {label}
             </span>
           </button>

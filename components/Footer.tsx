@@ -4,9 +4,9 @@ import {
   Phone,
   Mail,
   Globe,
-  Facebook,
-  Instagram,
-  Youtube,
+  Users,
+  Camera,
+  PlayCircle,
   ExternalLink,
 } from 'lucide-react'
 
@@ -27,7 +27,7 @@ const links = {
 
 export default function Footer() {
   return (
-    <footer className="hidden lg:block bg-[#080808] border-t border-[rgba(224,168,46,0.12)] mt-8">
+    <footer className="hidden lg:block bg-gray-100 border-t border-gray-200 mt-8">
       <div className="max-w-[1280px] mx-auto px-8 py-12">
         <div className="grid grid-cols-4 gap-10">
 
@@ -43,22 +43,22 @@ export default function Footer() {
               </div>
             </div>
 
-            <p className="text-xs text-gray-400 leading-relaxed mb-5">
+            <p className="text-xs text-gray-500 leading-relaxed mb-5">
               Dinas Pekerjaan Umum dan Penataan Ruang Kabupaten Sumenep. Menata kota dan melayani warga dengan infrastruktur berkualitas.
             </p>
 
             {/* Social */}
             <div className="flex gap-2">
               {[
-                { Icon: Facebook, href: '#', label: 'Facebook' },
-                { Icon: Instagram, href: '#', label: 'Instagram' },
-                { Icon: Youtube, href: '#', label: 'YouTube' },
+                { Icon: Users, href: '#', label: 'Facebook' },
+                { Icon: Camera, href: '#', label: 'Instagram' },
+                { Icon: PlayCircle, href: '#', label: 'YouTube' },
               ].map(({ Icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-8 h-8 rounded-lg border border-[rgba(224,168,46,0.2)] flex items-center justify-center text-gray-400 hover:text-[#E0A82E] hover:border-[#E0A82E] transition-all"
+                  className="w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center text-gray-500 hover:text-[#E0A82E] hover:border-[#E0A82E] transition-all"
                 >
                   <Icon size={14} />
                 </a>
@@ -71,7 +71,7 @@ export default function Footer() {
             <h3 className="text-xs font-bold text-[#E0A82E] uppercase tracking-widest mb-4">
               Kontak
             </h3>
-            <ul className="space-y-3 text-xs text-gray-400">
+            <ul className="space-y-3 text-xs text-gray-500">
               <li className="flex gap-2">
                 <MapPin size={13} className="text-[#E0A82E] flex-shrink-0 mt-0.5" />
                 <span className="leading-relaxed">
@@ -103,11 +103,11 @@ export default function Footer() {
                 <li key={label}>
                   <a
                     href={href}
-                    className="text-xs text-gray-400 hover:text-[#E0A82E] transition-colors flex items-center gap-1.5 group"
+                    className="text-xs text-gray-500 hover:text-[#E0A82E] transition-colors flex items-center gap-1.5 group"
                   >
                     <ExternalLink
                       size={10}
-                      className="text-gray-600 group-hover:text-[#E0A82E] transition-colors"
+                      className="text-gray-400 group-hover:text-[#E0A82E] transition-colors"
                     />
                     {label}
                   </a>
@@ -126,11 +126,11 @@ export default function Footer() {
                 <li key={label}>
                   <a
                     href={href}
-                    className="text-xs text-gray-400 hover:text-[#E0A82E] transition-colors flex items-center gap-1.5 group"
+                    className="text-xs text-gray-500 hover:text-[#E0A82E] transition-colors flex items-center gap-1.5 group"
                   >
                     <ExternalLink
                       size={10}
-                      className="text-gray-600 group-hover:text-[#E0A82E] transition-colors"
+                      className="text-gray-400 group-hover:text-[#E0A82E] transition-colors"
                     />
                     {label}
                   </a>
@@ -141,11 +141,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 pt-6 border-t border-[rgba(224,168,46,0.08)] flex items-center justify-between">
-          <p className="text-[10px] text-gray-600">
+        <div className="mt-10 pt-6 border-t border-gray-200 flex items-center justify-between">
+          <p className="text-[10px] text-gray-400">
             © 2026 Dinas Pekerjaan Umum dan Penataan Ruang Kabupaten Sumenep. Semua hak dilindungi.
           </p>
-          <p className="text-[10px] text-gray-600">
+          <p className="text-[10px] text-gray-400">
             Didukung oleh <span className="text-[#E0A82E]">AI PUTR</span> — Kota Untuk Kita
           </p>
         </div>

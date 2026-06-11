@@ -150,7 +150,7 @@ export default function ChatAIPUTR() {
               className="object-cover rounded-full border border-[#E0A82E]"
             />
           </div>
-          <h2 className="text-sm lg:text-base font-bold text-white">Chat AI PUTR</h2>
+          <h2 className="text-sm lg:text-base font-bold text-gray-900">Chat AI PUTR</h2>
         </div>
         <button className="flex items-center gap-1 text-[10px] text-[#E0A82E] hover:text-[#F0B83C] transition-colors">
           Lihat semua <ChevronRight size={12} />
@@ -163,7 +163,7 @@ export default function ChatAIPUTR() {
         {/* Left: chat area */}
         <div className="card-dark rounded-2xl overflow-hidden flex flex-col" style={{ height: '420px' }}>
           {/* Chat header */}
-          <div className="flex items-center gap-2.5 px-4 py-3 border-b border-[rgba(224,168,46,0.12)]">
+          <div className="flex items-center gap-2.5 px-4 py-3 border-b border-gray-200">
             <div className="relative w-8 h-8">
               <Image
                 src="/images/robot.jpeg"
@@ -173,10 +173,10 @@ export default function ChatAIPUTR() {
               />
             </div>
             <div>
-              <p className="text-xs font-bold text-white">AI PUTR Sumenep</p>
+              <p className="text-xs font-bold text-gray-900">AI PUTR Sumenep</p>
               <div className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-[10px] text-emerald-400">Online</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[10px] text-emerald-600">Online</span>
               </div>
             </div>
           </div>
@@ -184,7 +184,7 @@ export default function ChatAIPUTR() {
           {/* Messages */}
           <div
             ref={scrollRef}
-            className="flex-1 overflow-y-auto px-4 py-4 space-y-4 no-scrollbar"
+            className="flex-1 overflow-y-auto px-4 py-4 space-y-4 no-scrollbar bg-gray-50/50"
           >
             {messages.map((msg) => (
               <div
@@ -200,7 +200,7 @@ export default function ChatAIPUTR() {
                 >
                   {msg.content}
                 </div>
-                <span className="text-[9px] text-gray-600 mt-1 px-1">
+                <span className="text-[9px] text-gray-400 mt-1 px-1">
                   {formatTime(msg.timestamp)}
                 </span>
               </div>
@@ -214,13 +214,13 @@ export default function ChatAIPUTR() {
           </div>
 
           {/* Quick chips (mobile: inside chat) */}
-          <div className="lg:hidden px-4 pb-2 flex gap-2 overflow-x-auto no-scrollbar">
+          <div className="lg:hidden px-4 pb-2 flex gap-2 overflow-x-auto no-scrollbar bg-white border-t border-gray-100 pt-2">
             {quickChips.map((chip) => (
               <button
                 key={chip}
                 onClick={() => handleChip(chip)}
                 disabled={isLoading}
-                className="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full border border-[rgba(224,168,46,0.25)] text-[9px] text-[#E0A82E] hover:bg-[rgba(224,168,46,0.08)] transition-all disabled:opacity-40"
+                className="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full border border-[rgba(224,168,46,0.3)] text-[9px] text-[#E0A82E] hover:bg-[rgba(224,168,46,0.07)] transition-all disabled:opacity-40"
               >
                 <Zap size={9} />
                 {chip}
@@ -231,7 +231,7 @@ export default function ChatAIPUTR() {
           {/* Input */}
           <form
             onSubmit={handleSubmit}
-            className="flex items-center gap-2 px-4 py-3 border-t border-[rgba(224,168,46,0.12)]"
+            className="flex items-center gap-2 px-4 py-3 border-t border-gray-200 bg-white"
           >
             <input
               ref={inputRef}
@@ -241,9 +241,9 @@ export default function ChatAIPUTR() {
               placeholder="Ketik pertanyaan di sini..."
               disabled={isLoading}
               className="
-                flex-1 bg-[#1a1a1a] border border-[rgba(224,168,46,0.15)] rounded-xl
-                px-3.5 py-2 text-xs text-white placeholder-gray-600
-                focus:outline-none focus:border-[rgba(224,168,46,0.5)] transition-all
+                flex-1 bg-gray-50 border border-gray-200 rounded-xl
+                px-3.5 py-2 text-xs text-gray-900 placeholder-gray-400
+                focus:outline-none focus:border-[rgba(224,168,46,0.5)] focus:bg-white transition-all
                 disabled:opacity-50
               "
             />
@@ -276,9 +276,9 @@ export default function ChatAIPUTR() {
                   onClick={() => handleChip(chip)}
                   disabled={isLoading}
                   className="
-                    text-left text-[11px] text-gray-300 hover:text-white
-                    px-3 py-2.5 rounded-xl border border-[rgba(224,168,46,0.12)]
-                    hover:border-[rgba(224,168,46,0.35)] hover:bg-[#181818]
+                    text-left text-[11px] text-gray-700 hover:text-gray-900
+                    px-3 py-2.5 rounded-xl border border-gray-200
+                    hover:border-[rgba(224,168,46,0.35)] hover:bg-gray-50
                     transition-all leading-snug disabled:opacity-40
                   "
                 >
@@ -291,7 +291,7 @@ export default function ChatAIPUTR() {
           {/* Topik tersedia */}
           <div className="card-dark rounded-2xl p-4 flex-1">
             <p className="text-xs font-semibold text-[#E0A82E] mb-3">Topik Tersedia</p>
-            <ul className="space-y-2 text-[11px] text-gray-400">
+            <ul className="space-y-2 text-[11px] text-gray-600">
               {[
                 'Data Jalan Kabupaten',
                 'Data Jembatan & Kondisi',
