@@ -3,6 +3,7 @@ import BottomNav from '@/components/BottomNav'
 import HeroKadis from '@/components/HeroKadis'
 import ChatAIPUTR from '@/components/ChatAIPUTR'
 import Footer from '@/components/Footer'
+import WhatsAppButton from '@/components/WhatsAppButton'
 
 export default function HomePage() {
   return (
@@ -19,6 +20,7 @@ export default function HomePage() {
 
       <Footer />
       <BottomNav />
+      <WhatsAppButton />
     </>
   )
 }
