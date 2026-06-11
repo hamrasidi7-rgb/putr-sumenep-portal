@@ -3,8 +3,8 @@ import Image from 'next/image'
 export default function HeroKadis() {
   return (
     <>
-      {/* ── LAYAR UTAMA: Full-screen Kadis ── */}
-      <section className="relative min-h-[100svh] bg-[#f0f2f5] overflow-hidden flex flex-col items-center justify-end">
+      {/* ── LAYAR UTAMA: Banner rapat di bawah header ── */}
+      <section className="relative bg-[#f0f2f5] overflow-hidden">
 
         {/* Cover art — very subtle bg texture */}
         <div className="absolute inset-0 pointer-events-none">
@@ -20,8 +20,8 @@ export default function HeroKadis() {
         {/* Gold ambient glow */}
         <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-[#E0A82E]/10 blur-3xl pointer-events-none" />
 
-        {/* Hero banner — 390 × 470 px */}
-        <div className="relative flex-shrink-0" style={{ width: 390, height: 470 }}>
+        {/* Hero banner — full width, 470 px tinggi */}
+        <div className="relative w-full" style={{ height: 470 }}>
           <Image
             src="/images/FOTO LAYAR UTAMA.jpeg"
             alt="Layar Utama PUTR Sumenep"

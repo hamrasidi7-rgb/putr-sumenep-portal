@@ -11,7 +11,7 @@ export default function Header() {
   return (
     <>
       {/* ── Mobile header (< lg) ── */}
-      <header className="sticky top-0 z-50 lg:hidden bg-red-600/95 backdrop-blur-md border-b border-red-700 shadow-sm">
+      <header className="sticky top-0 z-50 lg:hidden bg-red-600/50 backdrop-blur-md border-b border-red-700 shadow-sm">
         <div className="flex items-center justify-between px-4 h-14">
           {/* Logo */}
           <div className="flex items-center gap-2.5">
@@ -19,7 +19,7 @@ export default function Header() {
               <Image src="/images/logo.jpeg" alt="Logo PUTR Sumenep" fill className="object-contain rounded-lg" />
             </div>
             <div className="leading-tight">
-              <p className="text-xs font-bold text-[#E0A82E] tracking-wide">PUTR SUMENEP</p>
+              <p className="text-[15px] font-extrabold text-[#E0A82E] tracking-wide">PUTR SUMENEP</p>
               <p className="text-[9px] text-red-100 leading-none">Dinas PU & Tata Ruang Sumenep</p>
             </div>
           </div>
@@ -36,7 +36,7 @@ export default function Header() {
 
         {/* Mobile drawer */}
         {mobileOpen && (
-          <nav className="border-t border-red-700 bg-red-600 shadow-md">
+          <nav className="border-t border-red-700 bg-red-600/50 shadow-md">
             {navItems.map(({ id, label, Icon, href }) => (
               <a
                 key={id}
@@ -59,7 +59,7 @@ export default function Header() {
       </header>
 
       {/* ── Desktop top nav (≥ lg) ── */}
-      <header className="hidden lg:block sticky top-0 z-50 bg-red-600/95 backdrop-blur-md border-b border-red-700 shadow-sm">
+      <header className="hidden lg:block sticky top-0 z-50 bg-red-600/50 backdrop-blur-md border-b border-red-700 shadow-sm">
         <div className="max-w-[1280px] mx-auto px-8 h-16 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
@@ -67,7 +67,7 @@ export default function Header() {
               <Image src="/images/logo.jpeg" alt="Logo PUTR Sumenep" fill className="object-contain rounded-xl" />
             </div>
             <div className="leading-tight">
-              <p className="text-sm font-bold text-[#E0A82E] tracking-wider">PUTR SUMENEP</p>
+              <p className="text-[18px] font-extrabold text-[#E0A82E] tracking-wider">PUTR SUMENEP</p>
               <p className="text-[10px] text-red-100">Dinas Pekerjaan Umum dan Tata Ruang Sumenep</p>
             </div>
           </div>
