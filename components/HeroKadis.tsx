@@ -1,5 +1,8 @@
 import Image from 'next/image'
 
+const TICKER_ITEM = 'KOTA UNTUK KITA'
+const TICKER_SEP  = '◆'
+
 export default function HeroKadis() {
   return (
     <>
@@ -25,6 +28,40 @@ export default function HeroKadis() {
           className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
           style={{ background: 'linear-gradient(to bottom, transparent, #0d0f14)' }}
         />
+
+        {/* ── Ticker KOTA UNTUK KITA ── */}
+        <div
+          className="absolute bottom-0 left-0 right-0 overflow-hidden py-3"
+          style={{
+            background: 'rgba(0,0,0,0.55)',
+            backdropFilter: 'blur(6px)',
+            WebkitBackdropFilter: 'blur(6px)',
+            borderTop: '1px solid rgba(224,168,46,0.25)',
+          }}
+        >
+          {/* 12 items = 6 + 6 duplikat → seamless loop dengan translateX(-50%) */}
+          <div
+            className="flex whitespace-nowrap"
+            style={{
+              width: 'max-content',
+              animation: 'ticker-scroll 18s linear infinite',
+            }}
+          >
+            {Array.from({ length: 12 }, (_, i) => (
+              <span key={i} className="inline-flex items-center gap-3 px-6">
+                <span
+                  className="font-extrabold tracking-[0.35em] text-sm uppercase"
+                  style={{ color: '#E0A82E' }}
+                >
+                  {TICKER_ITEM}
+                </span>
+                <span style={{ color: 'rgba(224,168,46,0.35)', fontSize: '0.6rem' }}>
+                  {TICKER_SEP}
+                </span>
+              </span>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ── TAGLINE — hitam, langsung di bawah banner ── */}

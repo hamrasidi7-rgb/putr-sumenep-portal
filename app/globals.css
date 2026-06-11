@@ -193,6 +193,12 @@ body {
   color: #374151;
 }
 
+/* ── Ticker scroll ── */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 /* ── No horizontal overflow ── */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
