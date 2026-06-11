@@ -3,22 +3,11 @@ import Image from 'next/image'
 export default function HeroKadis() {
   return (
     <>
-      {/* ── LAYAR UTAMA: Banner rapat di bawah header ── */}
-      <section className="relative bg-[#f0f2f5] overflow-hidden">
-
-        {/* Cover art — very subtle bg texture */}
-        <div className="absolute inset-0 pointer-events-none">
-          <Image
-            src="/images/cover.jpeg"
-            alt=""
-            fill
-            className="object-cover object-center opacity-[0.07]"
-            priority
-          />
-        </div>
+      {/* ── LAYAR UTAMA: Banner ── */}
+      <section className="relative overflow-hidden" style={{ background: '#0d0f14' }}>
 
         {/* Gold ambient glow */}
-        <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-[#E0A82E]/10 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-[#E0A82E]/8 blur-3xl pointer-events-none" />
 
         {/* Hero banner — full width, 470 px tinggi */}
         <div className="relative w-full" style={{ height: 470 }}>
@@ -31,17 +20,20 @@ export default function HeroKadis() {
           />
         </div>
 
-        {/* Bottom fade to page bg */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent to-[#f0f2f5] pointer-events-none" />
+        {/* Bottom fade ke hitam */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
+          style={{ background: 'linear-gradient(to bottom, transparent, #0d0f14)' }}
+        />
       </section>
 
-      {/* ── TAGLINE ── */}
-      <section className="relative bg-[#f0f2f5] px-4 lg:px-8 pt-4 pb-14 lg:pb-20">
+      {/* ── TAGLINE — hitam, langsung di bawah banner ── */}
+      <section className="px-4 lg:px-8 pt-4 pb-8 lg:pb-10" style={{ background: '#0d0f14' }}>
         <div className="max-w-[860px] mx-auto text-center">
           <h2 className="font-extrabold tracking-tight leading-[1.08]
             text-[1.75rem] sm:text-[2.25rem] lg:text-[3.25rem] xl:text-[4rem]">
-            <span className="block text-gray-800">MEMBANGUN INFRASTRUKTUR,</span>
-            <span className="block text-gray-800">MENATA RUANG,</span>
+            <span className="block text-white">MEMBANGUN INFRASTRUKTUR,</span>
+            <span className="block text-white">MENATA RUANG,</span>
             <span className="block text-gold-gradient">MELAYANI WARGA.</span>
           </h2>
         </div>

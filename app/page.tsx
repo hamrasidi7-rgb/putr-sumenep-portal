@@ -10,7 +10,7 @@ export default function HomePage() {
     <>
       <Header />
 
-      <main className="pb-20 lg:pb-0 min-h-screen">
+      <main className="pb-20 lg:pb-0 min-h-screen bg-[#0d0f14]">
         <HeroKadis />
         <KategoriCards />
       </main>
