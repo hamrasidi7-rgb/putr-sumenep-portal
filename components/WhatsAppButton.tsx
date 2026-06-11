@@ -54,7 +54,7 @@ export default function WhatsAppButton() {
           "
         >
           <Image
-            src="/images/CHAT PENGADUAN PUTR SUMENEP.jpeg"
+            src="/images/NEW ROBOT PUTR SUMENEP.jpeg"
             alt="Chat Pengaduan PUTR Sumenep"
             fill
             className="object-cover"
