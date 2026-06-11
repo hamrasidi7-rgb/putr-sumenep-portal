@@ -188,32 +188,28 @@ export default function ChatAIPUTR() {
   }
 
   return (
-    <section id="chat-pengaduan" className="px-4 lg:px-8 py-10 lg:py-14" style={{ background: '#0d0f14' }}>
+    <section id="chat-pengaduan" className="px-4 lg:px-8 py-10 lg:py-14 bg-[#f0f2f5]">
       <div className="max-w-[860px] mx-auto">
 
-        {/* ── Banner header ── */}
-        <div className="relative w-full rounded-2xl overflow-hidden mb-6" style={{ height: 100 }}>
+        {/* ── Banner header — tampil penuh dengan object-contain ── */}
+        <div
+          className="relative w-full rounded-2xl overflow-hidden mb-6 bg-white"
+          style={{ height: 130 }}
+        >
           <Image
             src={AVATAR}
             alt="Chat Pengaduan PUTR Sumenep"
             fill
-            className="object-cover object-center"
+            className="object-contain"
           />
         </div>
 
         {/* ── Greeting bubble ── */}
         <div className="flex items-start gap-3 mb-6">
-          <div className="relative w-10 h-10 flex-shrink-0 mt-0.5 rounded-full overflow-hidden border-2 border-[#E0A82E]">
+          <div className="relative w-10 h-10 flex-shrink-0 mt-0.5 rounded-full overflow-hidden border-2 border-[#E0A82E] shadow-sm">
             <Image src={AVATAR} alt="AI" fill className="object-cover object-right" />
           </div>
-          <div
-            className="px-4 py-4 text-sm leading-relaxed max-w-xl whitespace-pre-line rounded-[18px_18px_18px_4px] border"
-            style={{
-              background: '#1a1d26',
-              borderColor: 'rgba(224,168,46,0.2)',
-              color: '#e5e7eb',
-            }}
-          >
+          <div className="bubble-bot px-4 py-4 text-sm leading-relaxed max-w-xl whitespace-pre-line">
             {GREETING.content}
           </div>
         </div>
@@ -225,11 +221,7 @@ export default function ChatAIPUTR() {
               key={id}
               onClick={() => sendMessage(query)}
               disabled={isLoading}
-              className="rounded-2xl p-3.5 flex flex-col items-center gap-2 text-center hover:-translate-y-1 transition-all duration-200 disabled:opacity-50"
-              style={{
-                background: '#1a1d26',
-                border: '1px solid rgba(255,255,255,0.07)',
-              }}
+              className="rounded-2xl p-3.5 flex flex-col items-center gap-2 text-center bg-white border border-gray-100 shadow-sm hover:-translate-y-1 hover:shadow-md hover:border-[rgba(224,168,46,0.3)] transition-all duration-200 disabled:opacity-50"
             >
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -237,7 +229,7 @@ export default function ChatAIPUTR() {
               >
                 <Icon size={18} style={{ color }} strokeWidth={1.8} />
               </div>
-              <span className="text-[11px] font-bold text-gray-300 tracking-wide leading-tight">{label}</span>
+              <span className="text-[11px] font-bold text-gray-700 tracking-wide leading-tight">{label}</span>
             </button>
           ))}
         </div>
@@ -246,8 +238,8 @@ export default function ChatAIPUTR() {
         {chatStarted && (
           <div
             ref={scrollRef}
-            className="rounded-2xl p-4 space-y-4 mb-4 overflow-y-auto no-scrollbar border"
-            style={{ maxHeight: 420, background: '#111318', borderColor: 'rgba(255,255,255,0.06)' }}
+            className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 space-y-4 mb-4 overflow-y-auto no-scrollbar"
+            style={{ maxHeight: 420 }}
           >
             {messages.slice(1).map((msg) => (
               <div key={msg.id} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
@@ -255,7 +247,7 @@ export default function ChatAIPUTR() {
                   ${msg.role === 'user' ? 'bubble-user font-medium' : 'bubble-bot'}`}>
                   {msg.content}
                 </div>
-                <span className="text-[9px] text-gray-600 mt-1 px-1">{formatTime(msg.timestamp)}</span>
+                <span className="text-[9px] text-gray-400 mt-1 px-1">{formatTime(msg.timestamp)}</span>
               </div>
             ))}
             {isLoading && (
@@ -271,10 +263,7 @@ export default function ChatAIPUTR() {
 
         {/* ── Input ── */}
         <form onSubmit={handleSubmit}>
-          <div
-            className="flex items-center gap-3 rounded-2xl border px-4 py-3 transition-all"
-            style={{ background: '#1a1d26', borderColor: 'rgba(255,255,255,0.08)' }}
-          >
+          <div className="flex items-center gap-3 bg-white rounded-2xl border border-gray-200 shadow-sm px-4 py-3 hover:border-[rgba(224,168,46,0.4)] transition-all">
             <div className="relative w-8 h-8 flex-shrink-0 rounded-full overflow-hidden border border-[#E0A82E]">
               <Image src={AVATAR} alt="AI" fill className="object-cover object-right" />
             </div>
@@ -286,8 +275,7 @@ export default function ChatAIPUTR() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ketik laporan pengaduan Anda di sini..."
               disabled={isLoading}
-              className="flex-1 text-sm placeholder-gray-600 bg-transparent outline-none disabled:opacity-50"
-              style={{ color: '#e5e7eb' }}
+              className="flex-1 text-sm text-gray-700 placeholder-gray-400 bg-transparent outline-none disabled:opacity-50"
             />
             <button
               type="submit"
