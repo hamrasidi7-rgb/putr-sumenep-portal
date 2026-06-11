@@ -2,8 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Image from 'next/image'
-import { Send, ChevronRight, Zap } from 'lucide-react'
-import { quickChips } from '@/data/putr'
+import { Send, Navigation, ArrowLeftRight, Droplets, Building2, Map } from 'lucide-react'
 
 interface Message {
   id: number
@@ -12,13 +11,55 @@ interface Message {
   timestamp: Date
 }
 
-const INITIAL_MESSAGE: Message = {
+const GREETING: Message = {
   id: 0,
   role: 'assistant',
-  content:
-    'Halo! Saya AI PUTR Sumenep 👋\n\nSaya siap membantu pertanyaan Anda mengenai pembangunan infrastruktur di Kabupaten Sumenep. Tanyakan tentang jalan, jembatan, embung, irigasi, dan lainnya!',
+  content: 'Halo!\nSaya AI PUTR Sumenep.\nSilakan pilih topik atau ketik pertanyaan Anda mengenai pembangunan Kabupaten Sumenep.',
   timestamp: new Date(),
 }
+
+const TOPICS = [
+  {
+    id: 'jalan',
+    label: 'JALAN',
+    Icon: Navigation,
+    color: '#3B82F6',
+    bg: '#EFF6FF',
+    query: 'Ceritakan informasi tentang kondisi jalan kabupaten di Sumenep.',
+  },
+  {
+    id: 'jembatan',
+    label: 'JEMBATAN',
+    Icon: ArrowLeftRight,
+    color: '#F59E0B',
+    bg: '#FFFBEB',
+    query: 'Ceritakan informasi tentang jembatan di Kabupaten Sumenep.',
+  },
+  {
+    id: 'drainase',
+    label: 'DRAINASE',
+    Icon: Droplets,
+    color: '#06B6D4',
+    bg: '#ECFEFF',
+    query: 'Ceritakan informasi tentang sistem drainase di Kabupaten Sumenep.',
+  },
+  {
+    id: 'gedung',
+    label: 'GEDUNG',
+    Icon: Building2,
+    color: '#10B981',
+    bg: '#ECFDF5',
+    query: 'Ceritakan informasi tentang gedung dan bangunan pemerintah di Sumenep.',
+  },
+  {
+    id: 'tata-ruang',
+    label: 'TATA RUANG',
+    Icon: Map,
+    color: '#8B5CF6',
+    bg: '#F5F3FF',
+    query: 'Ceritakan informasi tentang tata ruang dan perencanaan wilayah Kabupaten Sumenep.',
+  },
+]
 
 function formatTime(date: Date) {
   return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
@@ -26,7 +67,7 @@ function formatTime(date: Date) {
 
 function TypingIndicator() {
   return (
-    <div className="flex gap-1.5 items-center px-4 py-3 bubble-bot w-fit max-w-[80%]">
+    <div className="flex gap-1.5 items-center px-4 py-3 bubble-bot w-fit">
       {[0, 1, 2].map((i) => (
         <span
           key={i}
@@ -39,9 +80,10 @@ function TypingIndicator() {
 }
 
 export default function ChatAIPUTR() {
-  const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE])
+  const [messages, setMessages] = useState<Message[]>([GREETING])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [chatStarted, setChatStarted] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -55,9 +97,21 @@ export default function ChatAIPUTR() {
     scrollToBottom()
   }, [messages, isLoading, scrollToBottom])
 
+  // Terima pesan dari hero quick-input
+  useEffect(() => {
+    const handler = (e: CustomEvent) => {
+      sendMessage(e.detail as string)
+    }
+    window.addEventListener('hero-query', handler as EventListener)
+    return () => window.removeEventListener('hero-query', handler as EventListener)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const sendMessage = useCallback(
     async (content: string) => {
       if (!content.trim() || isLoading) return
+
+      setChatStarted(true)
 
       const userMsg: Message = {
         id: Date.now(),
@@ -71,15 +125,19 @@ export default function ChatAIPUTR() {
       setIsLoading(true)
 
       try {
-        const history = [...messages, userMsg].map((m) => ({
-          role: m.role,
-          content: m.content,
-        }))
+        const history = [...messages, userMsg]
+          .filter((m) => m.id !== 0) // exclude greeting from API call context
+          .map((m) => ({ role: m.role, content: m.content }))
+
+        // Always include greeting context for the API
+        const apiMessages = [
+          ...history,
+        ]
 
         const res = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: history }),
+          body: JSON.stringify({ messages: apiMessages }),
         })
 
         if (!res.ok || !res.body) throw new Error('API error')
@@ -104,10 +162,7 @@ export default function ChatAIPUTR() {
           setMessages((prev) => {
             const updated = [...prev]
             const last = updated[updated.length - 1]
-            updated[updated.length - 1] = {
-              ...last,
-              content: last.content + chunk,
-            }
+            updated[updated.length - 1] = { ...last, content: last.content + chunk }
             return updated
           })
         }
@@ -118,8 +173,7 @@ export default function ChatAIPUTR() {
           {
             id: Date.now() + 2,
             role: 'assistant',
-            content:
-              'Maaf, terjadi kesalahan saat menghubungi AI. Silakan coba lagi atau pastikan API key sudah dikonfigurasi.',
+            content: 'Maaf, terjadi kesalahan. Silakan coba lagi atau pastikan API key sudah dikonfigurasi.',
             timestamp: new Date(),
           },
         ])
@@ -133,67 +187,84 @@ export default function ChatAIPUTR() {
     sendMessage(input)
   }
 
-  const handleChip = (chip: string) => {
-    sendMessage(chip)
-  }
-
   return (
-    <section className="px-4 lg:px-0 py-4 lg:py-8">
-      {/* Section title */}
-      <div className="flex items-center justify-between mb-4 lg:mb-6">
-        <div className="flex items-center gap-2">
-          <div className="relative w-7 h-7 flex-shrink-0">
+    <section id="ai-putr" className="px-4 lg:px-0 py-10 lg:py-16">
+      <div className="max-w-[860px] mx-auto">
+
+        {/* ── Section heading ── */}
+        <div className="flex items-center gap-3 mb-8">
+          <div className="relative w-12 h-12 flex-shrink-0">
             <Image
               src="/images/robot.jpeg"
               alt="AI PUTR"
               fill
-              className="object-cover rounded-full border border-[#E0A82E]"
+              className="object-cover rounded-full border-2 border-[#E0A82E] shadow-gold animate-float"
             />
           </div>
-          <h2 className="text-sm lg:text-base font-bold text-gray-900">Chat AI PUTR</h2>
-        </div>
-        <button className="flex items-center gap-1 text-[10px] text-[#E0A82E] hover:text-[#F0B83C] transition-colors">
-          Lihat semua <ChevronRight size={12} />
-        </button>
-      </div>
-
-      {/* ── Main layout: 1 col mobile, 2 col desktop ── */}
-      <div className="grid lg:grid-cols-[1fr_260px] xl:grid-cols-[1fr_300px] gap-4">
-
-        {/* Left: chat area */}
-        <div className="card-dark rounded-2xl overflow-hidden flex flex-col" style={{ height: '420px' }}>
-          {/* Chat header */}
-          <div className="flex items-center gap-2.5 px-4 py-3 border-b border-gray-200">
-            <div className="relative w-8 h-8">
-              <Image
-                src="/images/robot.jpeg"
-                alt="AI PUTR"
-                fill
-                className="object-cover rounded-full border-2 border-[#E0A82E] animate-float"
-              />
-            </div>
-            <div>
-              <p className="text-xs font-bold text-gray-900">AI PUTR Sumenep</p>
-              <div className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[10px] text-emerald-600">Online</span>
-              </div>
-            </div>
+          <div>
+            <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold">Section</p>
+            <h2 className="text-lg lg:text-xl font-extrabold text-gray-900 tracking-wide">
+              AI PUTR <span className="text-gold-gradient">SUMENEP</span>
+            </h2>
           </div>
+        </div>
 
-          {/* Messages */}
+        {/* ── Bot greeting bubble ── */}
+        <div className="flex items-start gap-3 mb-6">
+          <div className="relative w-8 h-8 flex-shrink-0 mt-0.5">
+            <Image
+              src="/images/robot.jpeg"
+              alt="AI"
+              fill
+              className="object-cover rounded-full border-2 border-[#E0A82E]"
+            />
+          </div>
+          <div className="bubble-bot px-4 py-3 text-sm leading-relaxed max-w-sm lg:max-w-md whitespace-pre-line">
+            {GREETING.content}
+          </div>
+        </div>
+
+        {/* ── Topic Cards Grid ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-8">
+          {TOPICS.map(({ id, label, Icon, color, bg, query }) => (
+            <button
+              key={id}
+              onClick={() => sendMessage(query)}
+              disabled={isLoading}
+              className="
+                group card-dark rounded-2xl p-4 flex flex-col items-center gap-2.5 text-center
+                hover:border-[rgba(224,168,46,0.4)] hover:bg-gray-50 hover:-translate-y-1
+                hover:shadow-gold transition-all duration-200 disabled:opacity-50
+              "
+            >
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center transition-all group-hover:scale-110"
+                style={{ background: bg, border: `1px solid ${color}30` }}
+              >
+                <Icon size={20} style={{ color }} strokeWidth={1.8} />
+              </div>
+              <span className="text-[11px] lg:text-xs font-bold text-gray-700 group-hover:text-gray-900 tracking-wide leading-tight">
+                {label}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* ── Chat messages (muncul setelah ada percakapan) ── */}
+        {chatStarted && (
           <div
             ref={scrollRef}
-            className="flex-1 overflow-y-auto px-4 py-4 space-y-4 no-scrollbar bg-gray-50/50"
+            className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 space-y-4 mb-4 overflow-y-auto no-scrollbar"
+            style={{ maxHeight: '420px' }}
           >
-            {messages.map((msg) => (
+            {messages.slice(1).map((msg) => (
               <div
                 key={msg.id}
                 className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
               >
                 <div
                   className={`
-                    max-w-[80%] lg:max-w-[75%] px-3.5 py-2.5 text-xs leading-relaxed
+                    max-w-[80%] px-4 py-2.5 text-sm leading-relaxed
                     ${msg.role === 'user' ? 'bubble-user font-medium' : 'bubble-bot'}
                     whitespace-pre-wrap
                   `}
@@ -205,115 +276,45 @@ export default function ChatAIPUTR() {
                 </span>
               </div>
             ))}
-
             {isLoading && (
-              <div className="flex flex-col items-start">
+              <div className="flex items-start gap-3">
+                <div className="relative w-7 h-7 flex-shrink-0">
+                  <Image src="/images/robot.jpeg" alt="AI" fill className="object-cover rounded-full border border-[#E0A82E]" />
+                </div>
                 <TypingIndicator />
               </div>
             )}
           </div>
+        )}
 
-          {/* Quick chips (mobile: inside chat) */}
-          <div className="lg:hidden px-4 pb-2 flex gap-2 overflow-x-auto no-scrollbar bg-white border-t border-gray-100 pt-2">
-            {quickChips.map((chip) => (
-              <button
-                key={chip}
-                onClick={() => handleChip(chip)}
-                disabled={isLoading}
-                className="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full border border-[rgba(224,168,46,0.3)] text-[9px] text-[#E0A82E] hover:bg-[rgba(224,168,46,0.07)] transition-all disabled:opacity-40"
-              >
-                <Zap size={9} />
-                {chip}
-              </button>
-            ))}
-          </div>
-
-          {/* Input */}
-          <form
-            onSubmit={handleSubmit}
-            className="flex items-center gap-2 px-4 py-3 border-t border-gray-200 bg-white"
-          >
+        {/* ── Input ── */}
+        <form onSubmit={handleSubmit}>
+          <div className="flex items-center gap-3 bg-white rounded-2xl border border-gray-200
+            shadow-sm px-4 py-3 hover:border-[rgba(224,168,46,0.4)] transition-all">
+            <div className="relative w-7 h-7 flex-shrink-0">
+              <Image src="/images/robot.jpeg" alt="AI" fill className="object-cover rounded-full border border-[#E0A82E]" />
+            </div>
             <input
+              id="chat-input"
               ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ketik pertanyaan di sini..."
               disabled={isLoading}
-              className="
-                flex-1 bg-gray-50 border border-gray-200 rounded-xl
-                px-3.5 py-2 text-xs text-gray-900 placeholder-gray-400
-                focus:outline-none focus:border-[rgba(224,168,46,0.5)] focus:bg-white transition-all
-                disabled:opacity-50
-              "
+              className="flex-1 text-sm text-gray-700 placeholder-gray-400 bg-transparent outline-none disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
-              className="
-                w-9 h-9 rounded-xl bg-gold-gradient flex items-center justify-center
-                shadow-gold hover:shadow-gold-lg transition-all hover:scale-105
-                disabled:opacity-40 disabled:scale-100 flex-shrink-0
-              "
+              className="w-9 h-9 rounded-xl bg-gold-gradient flex items-center justify-center
+                shadow-gold hover:scale-105 transition-all disabled:opacity-40 disabled:scale-100 flex-shrink-0"
             >
-              <Send size={15} className="text-black" />
+              <Send size={14} className="text-black" />
             </button>
-          </form>
-        </div>
-
-        {/* Right: sidebar (desktop only) */}
-        <div className="hidden lg:flex flex-col gap-3">
-          {/* Quick prompts */}
-          <div className="card-dark rounded-2xl p-4">
-            <p className="text-xs font-semibold text-[#E0A82E] mb-3 flex items-center gap-1.5">
-              <Zap size={12} />
-              Pertanyaan Populer
-            </p>
-            <div className="flex flex-col gap-2">
-              {quickChips.map((chip) => (
-                <button
-                  key={chip}
-                  onClick={() => handleChip(chip)}
-                  disabled={isLoading}
-                  className="
-                    text-left text-[11px] text-gray-700 hover:text-gray-900
-                    px-3 py-2.5 rounded-xl border border-gray-200
-                    hover:border-[rgba(224,168,46,0.35)] hover:bg-gray-50
-                    transition-all leading-snug disabled:opacity-40
-                  "
-                >
-                  {chip}
-                </button>
-              ))}
-            </div>
           </div>
+        </form>
 
-          {/* Topik tersedia */}
-          <div className="card-dark rounded-2xl p-4 flex-1">
-            <p className="text-xs font-semibold text-[#E0A82E] mb-3">Topik Tersedia</p>
-            <ul className="space-y-2 text-[11px] text-gray-600">
-              {[
-                'Data Jalan Kabupaten',
-                'Data Jembatan & Kondisi',
-                'Program Embung 2024',
-                'Irigasi & Pertanian',
-                'PBG & Perizinan',
-                'RPJMD Sumenep',
-                'Regulasi Konstruksi',
-                'Jadwal Proyek',
-              ].map((t) => (
-                <li
-                  key={t}
-                  className="flex items-center gap-2 hover:text-[#E0A82E] cursor-pointer transition-colors"
-                  onClick={() => handleChip(`Informasi tentang ${t}?`)}
-                >
-                  <span className="w-1 h-1 rounded-full bg-[#E0A82E] flex-shrink-0" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
       </div>
     </section>
   )

@@ -20,7 +20,7 @@ export default function Header() {
             </div>
             <div className="leading-tight">
               <p className="text-xs font-bold text-[#E0A82E] tracking-wide">PUTR SUMENEP</p>
-              <p className="text-[9px] text-gray-500 leading-none">Dinas Pekerjaan Umum & Penataan Ruang</p>
+              <p className="text-[9px] text-gray-500 leading-none">Dinas PU & Tata Ruang Sumenep</p>
             </div>
           </div>
 
@@ -68,7 +68,7 @@ export default function Header() {
             </div>
             <div className="leading-tight">
               <p className="text-sm font-bold text-[#E0A82E] tracking-wider">PUTR SUMENEP</p>
-              <p className="text-[10px] text-gray-500">Dinas Pekerjaan Umum & Penataan Ruang</p>
+              <p className="text-[10px] text-gray-500">Dinas Pekerjaan Umum dan Tata Ruang Sumenep</p>
             </div>
           </div>
 
