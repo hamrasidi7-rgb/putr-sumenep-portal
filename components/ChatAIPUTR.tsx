@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Image from 'next/image'
-import { Send, Navigation, ArrowLeftRight, Droplets, Building2, Map, FlaskConical } from 'lucide-react'
+import { Send, AlertTriangle, ArrowLeftRight, Droplets, Lightbulb, TreePine, MessageSquare } from 'lucide-react'
 
 interface Message {
   id: number
@@ -11,61 +11,77 @@ interface Message {
   timestamp: Date
 }
 
+const AVATAR = '/images/CHAT PENGADUAN PUTR SUMENEP (2).jpeg'
+
 const GREETING: Message = {
   id: 0,
   role: 'assistant',
-  content: 'Halo!\nSaya AI PUTR Sumenep.\nSilakan pilih topik atau ketik pertanyaan Anda mengenai pembangunan Kabupaten Sumenep.',
+  content: `Selamat Datang di Chat AI Pengaduan PUTR Sumenep
+
+👋 Assalamu'alaikum Warahmatullahi Wabarakatuh.
+
+Selamat datang di Chat AI Pengaduan PUTR Sumenep, layanan digital yang membantu masyarakat Kabupaten Sumenep menyampaikan pengaduan, usulan, maupun informasi terkait infrastruktur dan pelayanan publik secara cepat, mudah, dan responsif.
+
+Melalui layanan ini, Anda dapat melaporkan berbagai permasalahan seperti:
+🚧 Jalan rusak atau berlubang
+🌉 Jembatan rusak
+🚰 Saluran drainase tersumbat atau rusak
+💡 Penerangan jalan umum (PJU) padam
+🌳 Pohon tumbang atau membahayakan
+🚮 Persoalan infrastruktur umum lainnya yang menjadi kewenangan PUTR Sumenep
+
+Cukup ketik laporan Anda secara singkat, sertakan lokasi kejadian, foto (jika ada), serta keterangan pendukung, maka sistem AI akan membantu mengarahkan laporan Anda agar dapat diteruskan kepada petugas yang berwenang.`,
   timestamp: new Date(),
 }
 
 const TOPICS = [
   {
-    id: 'jalan',
-    label: 'JALAN',
-    Icon: Navigation,
+    id: 'jalan-rusak',
+    label: 'JALAN RUSAK',
+    Icon: AlertTriangle,
     color: '#3B82F6',
     bg: '#EFF6FF',
-    query: 'Ceritakan informasi tentang kondisi jalan kabupaten di Sumenep.',
+    query: 'Saya ingin melaporkan jalan rusak atau berlubang. Mohon bantu saya menyampaikan pengaduan ini.',
   },
   {
     id: 'jembatan',
-    label: 'JEMBATAN',
+    label: 'JEMBATAN RUSAK',
     Icon: ArrowLeftRight,
     color: '#F59E0B',
     bg: '#FFFBEB',
-    query: 'Ceritakan informasi tentang jembatan di Kabupaten Sumenep.',
+    query: 'Saya ingin melaporkan kerusakan jembatan di wilayah Sumenep. Mohon bantu saya.',
   },
   {
     id: 'drainase',
-    label: 'DRAINASE',
+    label: 'DRAINASE RUSAK',
     Icon: Droplets,
     color: '#06B6D4',
     bg: '#ECFEFF',
-    query: 'Ceritakan informasi tentang sistem drainase di Kabupaten Sumenep.',
+    query: 'Saya ingin melaporkan saluran drainase yang tersumbat atau rusak.',
   },
   {
-    id: 'gedung',
-    label: 'GEDUNG',
-    Icon: Building2,
+    id: 'pju',
+    label: 'PJU PADAM',
+    Icon: Lightbulb,
+    color: '#EAB308',
+    bg: '#FEFCE8',
+    query: 'Saya ingin melaporkan penerangan jalan umum (PJU) yang padam atau tidak berfungsi.',
+  },
+  {
+    id: 'pohon',
+    label: 'POHON TUMBANG',
+    Icon: TreePine,
     color: '#10B981',
     bg: '#ECFDF5',
-    query: 'Ceritakan informasi tentang gedung dan bangunan pemerintah di Sumenep.',
+    query: 'Saya ingin melaporkan pohon tumbang atau pohon yang membahayakan warga.',
   },
   {
-    id: 'tata-ruang',
-    label: 'TATA RUANG',
-    Icon: Map,
+    id: 'lainnya',
+    label: 'LAINNYA',
+    Icon: MessageSquare,
     color: '#8B5CF6',
     bg: '#F5F3FF',
-    query: 'Ceritakan informasi tentang tata ruang dan perencanaan wilayah Kabupaten Sumenep.',
-  },
-  {
-    id: 'peralatan-lab',
-    label: 'PERALATAN & LABORATORIUM',
-    Icon: FlaskConical,
-    color: '#F43F5E',
-    bg: '#FFF1F2',
-    query: 'Ceritakan informasi tentang peralatan dan laboratorium yang dimiliki PUTR Sumenep.',
+    query: 'Saya ingin melaporkan persoalan infrastruktur umum lainnya yang menjadi kewenangan PUTR Sumenep.',
   },
 ]
 
@@ -101,24 +117,11 @@ export default function ChatAIPUTR() {
     }
   }, [])
 
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages, isLoading, scrollToBottom])
-
-  // Terima pesan dari hero quick-input
-  useEffect(() => {
-    const handler = (e: CustomEvent) => {
-      sendMessage(e.detail as string)
-    }
-    window.addEventListener('hero-query', handler as EventListener)
-    return () => window.removeEventListener('hero-query', handler as EventListener)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  useEffect(() => { scrollToBottom() }, [messages, isLoading, scrollToBottom])
 
   const sendMessage = useCallback(
     async (content: string) => {
       if (!content.trim() || isLoading) return
-
       setChatStarted(true)
 
       const userMsg: Message = {
@@ -134,31 +137,20 @@ export default function ChatAIPUTR() {
 
       try {
         const history = [...messages, userMsg]
-          .filter((m) => m.id !== 0) // exclude greeting from API call context
+          .filter((m) => m.id !== 0)
           .map((m) => ({ role: m.role, content: m.content }))
-
-        // Always include greeting context for the API
-        const apiMessages = [
-          ...history,
-        ]
 
         const res = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: apiMessages }),
+          body: JSON.stringify({ messages: history }),
         })
 
         if (!res.ok || !res.body) throw new Error('API error')
 
         const reader = res.body.getReader()
         const decoder = new TextDecoder()
-
-        const botMsg: Message = {
-          id: Date.now() + 1,
-          role: 'assistant',
-          content: '',
-          timestamp: new Date(),
-        }
+        const botMsg: Message = { id: Date.now() + 1, role: 'assistant', content: '', timestamp: new Date() }
 
         setIsLoading(false)
         setMessages((prev) => [...prev, botMsg])
@@ -181,7 +173,7 @@ export default function ChatAIPUTR() {
           {
             id: Date.now() + 2,
             role: 'assistant',
-            content: 'Maaf, terjadi kesalahan. Silakan coba lagi atau pastikan API key sudah dikonfigurasi.',
+            content: 'Maaf, terjadi kesalahan. Silakan coba lagi.',
             timestamp: new Date(),
           },
         ])
@@ -196,98 +188,80 @@ export default function ChatAIPUTR() {
   }
 
   return (
-    <section id="ai-putr" className="px-4 lg:px-0 py-10 lg:py-16">
+    <section id="chat-pengaduan" className="px-4 lg:px-8 py-10 lg:py-14" style={{ background: '#0d0f14' }}>
       <div className="max-w-[860px] mx-auto">
 
-        {/* ── Section heading ── */}
-        <div className="flex items-center gap-3 mb-8">
-          <div className="relative w-12 h-12 flex-shrink-0">
-            <Image
-              src="/images/robot.jpeg"
-              alt="AI PUTR"
-              fill
-              className="object-cover rounded-full border-2 border-[#E0A82E] shadow-gold animate-float"
-            />
-          </div>
-          <div>
-            <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold">Section</p>
-            <h2 className="text-lg lg:text-xl font-extrabold text-gray-900 tracking-wide">
-              AI PUTR <span className="text-gold-gradient">SUMENEP</span>
-            </h2>
-          </div>
+        {/* ── Banner header ── */}
+        <div className="relative w-full rounded-2xl overflow-hidden mb-6" style={{ height: 100 }}>
+          <Image
+            src={AVATAR}
+            alt="Chat Pengaduan PUTR Sumenep"
+            fill
+            className="object-cover object-center"
+          />
         </div>
 
-        {/* ── Bot greeting bubble ── */}
+        {/* ── Greeting bubble ── */}
         <div className="flex items-start gap-3 mb-6">
-          <div className="relative w-8 h-8 flex-shrink-0 mt-0.5">
-            <Image
-              src="/images/robot.jpeg"
-              alt="AI"
-              fill
-              className="object-cover rounded-full border-2 border-[#E0A82E]"
-            />
+          <div className="relative w-10 h-10 flex-shrink-0 mt-0.5 rounded-full overflow-hidden border-2 border-[#E0A82E]">
+            <Image src={AVATAR} alt="AI" fill className="object-cover object-right" />
           </div>
-          <div className="bubble-bot px-4 py-3 text-sm leading-relaxed max-w-sm lg:max-w-md whitespace-pre-line">
+          <div
+            className="px-4 py-4 text-sm leading-relaxed max-w-xl whitespace-pre-line rounded-[18px_18px_18px_4px] border"
+            style={{
+              background: '#1a1d26',
+              borderColor: 'rgba(224,168,46,0.2)',
+              color: '#e5e7eb',
+            }}
+          >
             {GREETING.content}
           </div>
         </div>
 
-        {/* ── Topic Cards Grid ── */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+        {/* ── Topic chips ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
           {TOPICS.map(({ id, label, Icon, color, bg, query }) => (
             <button
               key={id}
               onClick={() => sendMessage(query)}
               disabled={isLoading}
-              className="
-                group card-dark rounded-2xl p-4 flex flex-col items-center gap-2.5 text-center
-                hover:border-[rgba(224,168,46,0.4)] hover:bg-gray-50 hover:-translate-y-1
-                hover:shadow-gold transition-all duration-200 disabled:opacity-50
-              "
+              className="rounded-2xl p-3.5 flex flex-col items-center gap-2 text-center hover:-translate-y-1 transition-all duration-200 disabled:opacity-50"
+              style={{
+                background: '#1a1d26',
+                border: '1px solid rgba(255,255,255,0.07)',
+              }}
             >
               <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center transition-all group-hover:scale-110"
+                className="w-10 h-10 rounded-xl flex items-center justify-center"
                 style={{ background: bg, border: `1px solid ${color}30` }}
               >
-                <Icon size={20} style={{ color }} strokeWidth={1.8} />
+                <Icon size={18} style={{ color }} strokeWidth={1.8} />
               </div>
-              <span className="text-[11px] lg:text-xs font-bold text-gray-700 group-hover:text-gray-900 tracking-wide leading-tight">
-                {label}
-              </span>
+              <span className="text-[11px] font-bold text-gray-300 tracking-wide leading-tight">{label}</span>
             </button>
           ))}
         </div>
 
-        {/* ── Chat messages (muncul setelah ada percakapan) ── */}
+        {/* ── Chat messages ── */}
         {chatStarted && (
           <div
             ref={scrollRef}
-            className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 space-y-4 mb-4 overflow-y-auto no-scrollbar"
-            style={{ maxHeight: '420px' }}
+            className="rounded-2xl p-4 space-y-4 mb-4 overflow-y-auto no-scrollbar border"
+            style={{ maxHeight: 420, background: '#111318', borderColor: 'rgba(255,255,255,0.06)' }}
           >
             {messages.slice(1).map((msg) => (
-              <div
-                key={msg.id}
-                className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
-              >
-                <div
-                  className={`
-                    max-w-[80%] px-4 py-2.5 text-sm leading-relaxed
-                    ${msg.role === 'user' ? 'bubble-user font-medium' : 'bubble-bot'}
-                    whitespace-pre-wrap
-                  `}
-                >
+              <div key={msg.id} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+                <div className={`max-w-[80%] px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap
+                  ${msg.role === 'user' ? 'bubble-user font-medium' : 'bubble-bot'}`}>
                   {msg.content}
                 </div>
-                <span className="text-[9px] text-gray-400 mt-1 px-1">
-                  {formatTime(msg.timestamp)}
-                </span>
+                <span className="text-[9px] text-gray-600 mt-1 px-1">{formatTime(msg.timestamp)}</span>
               </div>
             ))}
             {isLoading && (
               <div className="flex items-start gap-3">
-                <div className="relative w-7 h-7 flex-shrink-0">
-                  <Image src="/images/robot.jpeg" alt="AI" fill className="object-cover rounded-full border border-[#E0A82E]" />
+                <div className="relative w-7 h-7 flex-shrink-0 rounded-full overflow-hidden border border-[#E0A82E]">
+                  <Image src={AVATAR} alt="AI" fill className="object-cover object-right" />
                 </div>
                 <TypingIndicator />
               </div>
@@ -297,10 +271,12 @@ export default function ChatAIPUTR() {
 
         {/* ── Input ── */}
         <form onSubmit={handleSubmit}>
-          <div className="flex items-center gap-3 bg-white rounded-2xl border border-gray-200
-            shadow-sm px-4 py-3 hover:border-[rgba(224,168,46,0.4)] transition-all">
-            <div className="relative w-7 h-7 flex-shrink-0">
-              <Image src="/images/robot.jpeg" alt="AI" fill className="object-cover rounded-full border border-[#E0A82E]" />
+          <div
+            className="flex items-center gap-3 rounded-2xl border px-4 py-3 transition-all"
+            style={{ background: '#1a1d26', borderColor: 'rgba(255,255,255,0.08)' }}
+          >
+            <div className="relative w-8 h-8 flex-shrink-0 rounded-full overflow-hidden border border-[#E0A82E]">
+              <Image src={AVATAR} alt="AI" fill className="object-cover object-right" />
             </div>
             <input
               id="chat-input"
@@ -308,15 +284,15 @@ export default function ChatAIPUTR() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ketik pertanyaan di sini..."
+              placeholder="Ketik laporan pengaduan Anda di sini..."
               disabled={isLoading}
-              className="flex-1 text-sm text-gray-700 placeholder-gray-400 bg-transparent outline-none disabled:opacity-50"
+              className="flex-1 text-sm placeholder-gray-600 bg-transparent outline-none disabled:opacity-50"
+              style={{ color: '#e5e7eb' }}
             />
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
-              className="w-9 h-9 rounded-xl bg-gold-gradient flex items-center justify-center
-                shadow-gold hover:scale-105 transition-all disabled:opacity-40 disabled:scale-100 flex-shrink-0"
+              className="w-9 h-9 rounded-xl bg-gold-gradient flex items-center justify-center shadow-gold hover:scale-105 transition-all disabled:opacity-40 disabled:scale-100 flex-shrink-0"
             >
               <Send size={14} className="text-black" />
             </button>

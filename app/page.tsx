@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import BottomNav from '@/components/BottomNav'
 import HeroKadis from '@/components/HeroKadis'
 import KategoriCards from '@/components/KategoriCards'
+import ChatAIPUTR from '@/components/ChatAIPUTR'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
 
@@ -13,6 +14,7 @@ export default function HomePage() {
       <main className="pb-20 lg:pb-0 min-h-screen bg-[#0d0f14]">
         <HeroKadis />
         <KategoriCards />
+        <ChatAIPUTR />
       </main>
 
       <Footer />
