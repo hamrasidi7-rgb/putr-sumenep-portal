@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Image from 'next/image'
-import { Send, Navigation, ArrowLeftRight, Droplets, Building2, Map } from 'lucide-react'
+import { Send, Navigation, ArrowLeftRight, Droplets, Building2, Map, FlaskConical } from 'lucide-react'
 
 interface Message {
   id: number
@@ -58,6 +58,14 @@ const TOPICS = [
     color: '#8B5CF6',
     bg: '#F5F3FF',
     query: 'Ceritakan informasi tentang tata ruang dan perencanaan wilayah Kabupaten Sumenep.',
+  },
+  {
+    id: 'peralatan-lab',
+    label: 'PERALATAN & LABORATORIUM',
+    Icon: FlaskConical,
+    color: '#F43F5E',
+    bg: '#FFF1F2',
+    query: 'Ceritakan informasi tentang peralatan dan laboratorium yang dimiliki PUTR Sumenep.',
   },
 ]
 
@@ -225,7 +233,7 @@ export default function ChatAIPUTR() {
         </div>
 
         {/* ── Topic Cards Grid ── */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
           {TOPICS.map(({ id, label, Icon, color, bg, query }) => (
             <button
               key={id}
