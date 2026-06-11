@@ -20,20 +20,13 @@ export default function HeroKadis() {
         {/* Gold ambient glow */}
         <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-[#E0A82E]/10 blur-3xl pointer-events-none" />
 
-        {/* Kadis portrait — main visual */}
-        <div
-          className="relative w-[280px] sm:w-[320px] lg:w-[380px] xl:w-[420px] flex-shrink-0"
-          style={{ height: '82vh' }}
-        >
+        {/* Hero banner — 390 × 470 px */}
+        <div className="relative flex-shrink-0" style={{ width: 390, height: 470 }}>
           <Image
-            src="/images/kadis.jpeg"
-            alt="Eri Kepala Dinas PUTR Sumenep"
+            src="/images/FOTO LAYAR UTAMA.jpeg"
+            alt="Layar Utama PUTR Sumenep"
             fill
-            className="object-cover object-top"
-            style={{
-              maskImage: 'linear-gradient(to bottom, black 72%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 72%, transparent 100%)',
-            }}
+            className="object-cover object-center"
             priority
           />
         </div>
