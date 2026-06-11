@@ -11,7 +11,7 @@ export default function Header() {
   return (
     <>
       {/* ── Mobile header (< lg) ── */}
-      <header className="sticky top-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+      <header className="sticky top-0 z-50 lg:hidden bg-red-600/95 backdrop-blur-md border-b border-red-700 shadow-sm">
         <div className="flex items-center justify-between px-4 h-14">
           {/* Logo */}
           <div className="flex items-center gap-2.5">
@@ -20,14 +20,14 @@ export default function Header() {
             </div>
             <div className="leading-tight">
               <p className="text-xs font-bold text-[#E0A82E] tracking-wide">PUTR SUMENEP</p>
-              <p className="text-[9px] text-gray-500 leading-none">Dinas PU & Tata Ruang Sumenep</p>
+              <p className="text-[9px] text-red-100 leading-none">Dinas PU & Tata Ruang Sumenep</p>
             </div>
           </div>
 
           {/* Hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="w-9 h-9 rounded-xl border border-gray-200 flex items-center justify-center text-gray-600 hover:border-[#E0A82E] hover:text-[#E0A82E] transition-all"
+            className="w-9 h-9 rounded-xl border border-red-400 flex items-center justify-center text-white hover:border-[#E0A82E] hover:text-[#E0A82E] transition-all"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={18} /> : <Menu size={18} />}
@@ -36,13 +36,13 @@ export default function Header() {
 
         {/* Mobile drawer */}
         {mobileOpen && (
-          <nav className="border-t border-gray-100 bg-white shadow-md">
+          <nav className="border-t border-red-700 bg-red-600 shadow-md">
             {navItems.map(({ id, label, Icon, href }) => (
               <a
                 key={id}
                 href={href}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-3 px-5 py-3.5 text-sm text-gray-600 hover:text-[#E0A82E] hover:bg-[rgba(224,168,46,0.05)] transition-all border-b border-gray-100"
+                className="flex items-center gap-3 px-5 py-3.5 text-sm text-white hover:text-[#E0A82E] hover:bg-[rgba(255,255,255,0.1)] transition-all border-b border-red-700"
               >
                 <Icon size={16} />
                 {label}
@@ -59,7 +59,7 @@ export default function Header() {
       </header>
 
       {/* ── Desktop top nav (≥ lg) ── */}
-      <header className="hidden lg:block sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+      <header className="hidden lg:block sticky top-0 z-50 bg-red-600/95 backdrop-blur-md border-b border-red-700 shadow-sm">
         <div className="max-w-[1280px] mx-auto px-8 h-16 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
@@ -68,7 +68,7 @@ export default function Header() {
             </div>
             <div className="leading-tight">
               <p className="text-sm font-bold text-[#E0A82E] tracking-wider">PUTR SUMENEP</p>
-              <p className="text-[10px] text-gray-500">Dinas Pekerjaan Umum dan Tata Ruang Sumenep</p>
+              <p className="text-[10px] text-red-100">Dinas Pekerjaan Umum dan Tata Ruang Sumenep</p>
             </div>
           </div>
 
@@ -78,7 +78,7 @@ export default function Header() {
               <a
                 key={id}
                 href={href}
-                className="px-4 py-2 rounded-xl text-sm text-gray-600 hover:text-[#E0A82E] hover:bg-[rgba(224,168,46,0.07)] transition-all font-medium"
+                className="px-4 py-2 rounded-xl text-sm text-white hover:text-[#E0A82E] hover:bg-[rgba(255,255,255,0.12)] transition-all font-medium"
               >
                 {label}
               </a>
