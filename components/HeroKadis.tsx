@@ -1,26 +1,6 @@
-'use client'
-
 import Image from 'next/image'
-import { useState } from 'react'
-import { Send } from 'lucide-react'
 
 export default function HeroKadis() {
-  const [query, setQuery] = useState('')
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const text = query.trim()
-    // Scroll ke AI section
-    document.getElementById('ai-putr')?.scrollIntoView({ behavior: 'smooth' })
-    if (text) {
-      // Pass teks ke ChatAIPUTR via custom event
-      setTimeout(() => {
-        window.dispatchEvent(new CustomEvent('hero-query', { detail: text }))
-      }, 500)
-      setQuery('')
-    }
-  }
-
   return (
     <>
       {/* ── LAYAR UTAMA: Full-screen Kadis ── */}
@@ -65,48 +45,12 @@ export default function HeroKadis() {
       {/* ── TAGLINE ── */}
       <section className="relative bg-[#f0f2f5] px-4 lg:px-8 pt-4 pb-14 lg:pb-20">
         <div className="max-w-[860px] mx-auto text-center">
-
-          {/* Stacked headline */}
-          <h2 className="font-extrabold tracking-tight leading-[1.08] mb-10
+          <h2 className="font-extrabold tracking-tight leading-[1.08]
             text-[1.75rem] sm:text-[2.25rem] lg:text-[3.25rem] xl:text-[4rem]">
             <span className="block text-gray-800">MEMBANGUN INFRASTRUKTUR,</span>
             <span className="block text-gray-800">MENATA RUANG,</span>
             <span className="block text-gold-gradient">MELAYANI WARGA.</span>
           </h2>
-
-          {/* Quick input — scrolls ke chat section */}
-          <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
-            <div className="flex items-center gap-3 bg-white rounded-2xl border border-gray-200
-              shadow-sm px-4 py-3
-              hover:border-[rgba(224,168,46,0.45)] hover:shadow-md transition-all">
-
-              {/* Robot avatar kecil */}
-              <div className="relative w-7 h-7 flex-shrink-0">
-                <Image
-                  src="/images/robot.jpeg"
-                  alt="AI PUTR"
-                  fill
-                  className="object-cover rounded-full border border-[#E0A82E]"
-                />
-              </div>
-
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Tanya AI PUTR Sumenep..."
-                className="flex-1 text-sm text-gray-700 placeholder-gray-400 bg-transparent outline-none"
-              />
-
-              <button
-                type="submit"
-                className="w-8 h-8 rounded-xl bg-gold-gradient flex items-center justify-center
-                  shadow-gold hover:scale-105 transition-all flex-shrink-0"
-              >
-                <Send size={13} className="text-black" />
-              </button>
-            </div>
-          </form>
         </div>
       </section>
     </>
