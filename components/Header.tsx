@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, X, Bot, Building2 } from 'lucide-react'
+import { Menu, X, Bot } from 'lucide-react'
+import Image from 'next/image'
 import { navItems } from '@/data/putr'
 
 export default function Header() {
@@ -14,8 +15,8 @@ export default function Header() {
         <div className="flex items-center justify-between px-4 h-14">
           {/* Logo */}
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-gold-gradient flex items-center justify-center shadow-gold flex-shrink-0">
-              <Building2 size={16} className="text-black" />
+            <div className="relative w-8 h-8 flex-shrink-0">
+              <Image src="/images/logo.jpeg" alt="Logo PUTR Sumenep" fill className="object-contain rounded-lg" />
             </div>
             <div className="leading-tight">
               <p className="text-xs font-bold text-[#E0A82E] tracking-wide">PUTR SUMENEP</p>
@@ -62,8 +63,8 @@ export default function Header() {
         <div className="max-w-[1280px] mx-auto px-8 h-16 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gold-gradient flex items-center justify-center shadow-gold">
-              <Building2 size={18} className="text-black" />
+            <div className="relative w-9 h-9 flex-shrink-0">
+              <Image src="/images/logo.jpeg" alt="Logo PUTR Sumenep" fill className="object-contain rounded-xl" />
             </div>
             <div className="leading-tight">
               <p className="text-sm font-bold text-[#E0A82E] tracking-wider">PUTR SUMENEP</p>
