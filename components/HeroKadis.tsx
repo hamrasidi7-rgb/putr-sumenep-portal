@@ -12,8 +12,8 @@ export default function HeroKadis() {
         {/* Gold ambient glow */}
         <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-[#E0A82E]/8 blur-3xl pointer-events-none" />
 
-        {/* Hero banner — full width, 470 px tinggi */}
-        <div className="relative w-full" style={{ height: 470 }}>
+        {/* Hero banner — 470px mobile, 580px desktop */}
+        <div className="relative w-full h-[470px] lg:h-[580px]">
           <Image
             src="/images/FOTO LAYAR UTAMA.jpeg"
             alt="Layar Utama PUTR Sumenep"

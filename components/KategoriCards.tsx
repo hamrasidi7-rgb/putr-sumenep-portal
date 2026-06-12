@@ -73,12 +73,12 @@ export default function KategoriCards() {
     <>
       <section className="px-4 py-8 lg:px-8" style={{ background: '#0d0f14' }}>
         <div className="max-w-[860px] mx-auto">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
             {TOPICS.map(({ id, label, Icon, cardBg, borderColor, iconBg, glow }) => (
               <button
                 key={id}
                 onClick={() => handleClick(label)}
-                className="relative rounded-3xl p-5 flex flex-col items-center gap-4 text-center transition-all duration-200 hover:scale-[1.03] active:scale-[0.97]"
+                className="relative rounded-3xl p-5 lg:p-7 flex flex-col items-center gap-4 text-center transition-all duration-200 hover:scale-[1.03] active:scale-[0.97]"
                 style={{
                   background: cardBg,
                   border: `1px solid ${borderColor}55`,
@@ -87,13 +87,14 @@ export default function KategoriCards() {
               >
                 {/* Icon container */}
                 <div
-                  className="w-[72px] h-[72px] rounded-2xl flex items-center justify-center"
+                  className="w-[72px] h-[72px] lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center"
                   style={{
                     background: iconBg,
                     boxShadow: `0 6px 16px ${glow}`,
                   }}
                 >
-                  <Icon size={34} className="text-white" strokeWidth={1.4} />
+                  <Icon size={34} className="text-white lg:hidden" strokeWidth={1.4} />
+                  <Icon size={40} className="text-white hidden lg:block" strokeWidth={1.4} />
                 </div>
 
                 {/* Label */}
