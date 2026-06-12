@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, X, Bot } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import Image from 'next/image'
 import { navItems } from '@/data/putr'
 
@@ -54,12 +54,6 @@ export default function Header() {
                 {label}
               </a>
             ))}
-            <div className="p-4">
-              <button className="w-full py-2.5 rounded-xl bg-gold-gradient text-black text-sm font-bold flex items-center justify-center gap-2 shadow-gold">
-                <Bot size={16} />
-                Tanya AI PUTR
-              </button>
-            </div>
           </nav>
         )}
       </header>
@@ -92,15 +86,9 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Kanan: CTA + Logo Sumekar */}
-          <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gold-gradient text-black text-sm font-bold shadow-gold hover:shadow-gold-lg hover:scale-105 transition-all">
-              <Bot size={15} />
-              Tanya AI PUTR
-            </button>
-            <div className="relative w-10 h-10 flex-shrink-0 bg-white rounded-full overflow-hidden shadow-md">
-              <Image src="/images/LOGO SUMEKAR.png" alt="Logo Sumekar Sumenep" fill className="object-contain p-0.5" />
-            </div>
+          {/* Logo Sumekar */}
+          <div className="relative w-10 h-10 flex-shrink-0 bg-white rounded-full overflow-hidden shadow-md">
+            <Image src="/images/LOGO SUMEKAR.png" alt="Logo Sumekar Sumenep" fill className="object-contain p-0.5" />
           </div>
         </div>
       </header>
