@@ -54,10 +54,10 @@ export default function WhatsAppButton() {
           "
         >
           <Image
-            src="/images/NEW ROBOT PUTR SUMENEP.jpeg"
+            src="/images/CHAT PENGADUAN PUTR SUMENEP (2).jpeg"
             alt="Chat Pengaduan PUTR Sumenep"
             fill
-            className="object-cover"
+            className="object-cover object-right"
           />
         </div>
       </div>
