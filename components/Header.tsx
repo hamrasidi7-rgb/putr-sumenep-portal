@@ -27,8 +27,8 @@ export default function Header() {
 
           {/* Kanan: Logo Sumekar + Hamburger */}
           <div className="flex items-center gap-2">
-            <div className="relative w-8 h-8 flex-shrink-0 bg-white rounded-full overflow-hidden shadow">
-              <Image src="/images/LOGO SUMEKAR.png" alt="Logo Sumekar Sumenep" fill className="object-contain p-0.5" />
+            <div className="relative w-12 h-12 flex-shrink-0" style={{ transform: 'translateX(-20%)' }}>
+              <Image src="/images/LOGO SUMEKAR.png" alt="Logo Sumekar Sumenep" fill className="object-contain mix-blend-multiply" />
             </div>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -87,8 +87,8 @@ export default function Header() {
           </nav>
 
           {/* Logo Sumekar */}
-          <div className="relative w-10 h-10 flex-shrink-0 bg-white rounded-full overflow-hidden shadow-md">
-            <Image src="/images/LOGO SUMEKAR.png" alt="Logo Sumekar Sumenep" fill className="object-contain p-0.5" />
+          <div className="relative w-[60px] h-[60px] flex-shrink-0" style={{ transform: 'translateX(-20%)' }}>
+            <Image src="/images/LOGO SUMEKAR.png" alt="Logo Sumekar Sumenep" fill className="object-contain mix-blend-multiply" />
           </div>
         </div>
       </header>
