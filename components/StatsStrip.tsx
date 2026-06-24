@@ -4,11 +4,11 @@ export default function StatsStrip() {
   return (
     <section className="py-4 lg:py-8">
       {/* Mobile: horizontal scroll strip */}
-      <div className="lg:hidden flex gap-3 px-4 overflow-x-auto no-scrollbar pb-2">
+      <div className="lg:hidden grid grid-cols-2 gap-3 px-4 pb-2">
         {statistics.map(({ value, unit, label, Icon }) => (
           <div
             key={label}
-            className="card-dark flex-shrink-0 w-36 rounded-2xl p-3.5 flex flex-col gap-1.5"
+            className="card-dark rounded-2xl p-3.5 flex flex-col gap-1.5"
           >
             <div className="w-8 h-8 rounded-lg bg-[rgba(224,168,46,0.1)] border border-[rgba(224,168,46,0.2)] flex items-center justify-center">
               <Icon size={15} className="text-[#E0A82E]" strokeWidth={1.8} />

@@ -11,7 +11,7 @@ export default function Header() {
   return (
     <>
       {/* ── Mobile header (< lg) ── */}
-      <header className="sticky top-0 z-50 lg:hidden bg-orange-400/85 backdrop-blur-md border-b border-orange-500 shadow-sm">
+      <header className="sticky top-0 z-50 lg:hidden bg-orange-400 border-b border-orange-500 shadow-md">
         <div className="flex items-center justify-between px-4 h-14">
 
           {/* Logo PUTR */}
@@ -42,7 +42,7 @@ export default function Header() {
 
         {/* Mobile drawer */}
         {mobileOpen && (
-          <nav className="border-t border-orange-500 bg-orange-400/90 shadow-md">
+          <nav className="border-t border-orange-500 bg-orange-400 shadow-md">
             {navItems.map(({ id, label, Icon, href }) => (
               <a
                 key={id}
@@ -59,7 +59,7 @@ export default function Header() {
       </header>
 
       {/* ── Desktop top nav (≥ lg) ── */}
-      <header className="hidden lg:block sticky top-0 z-50 bg-orange-400/85 backdrop-blur-md border-b border-orange-500 shadow-sm">
+      <header className="hidden lg:block sticky top-0 z-50 bg-orange-400 border-b border-orange-500 shadow-md">
         <div className="max-w-[1280px] mx-auto px-8 h-16 flex items-center justify-between">
 
           {/* Logo PUTR */}
