@@ -73,6 +73,15 @@ export default function KategoriCards() {
     <>
       <section className="px-4 py-8 lg:px-8" style={{ background: '#0d0f14' }}>
         <div className="max-w-[860px] mx-auto">
+
+          {/* Judul section */}
+          <div className="mb-6">
+            <h2 className="text-base lg:text-lg font-extrabold text-white tracking-wide leading-none">
+              DATA & PROGRES <span className="text-gold-gradient">PUTR</span>
+            </h2>
+            <p className="text-[11px] text-gray-500 mt-1">Informasi dan progres pekerjaan per bidang</p>
+          </div>
+
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
             {TOPICS.map(({ id, label, Icon, cardBg, borderColor, iconBg, glow }) => (
               <button

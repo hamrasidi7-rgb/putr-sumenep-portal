@@ -44,8 +44,9 @@ export default function GaleriPreview() {
           </div>
           <div>
             <h2 className="text-base lg:text-lg font-extrabold text-white tracking-wide leading-none">
-              GALERI <span className="text-gold-gradient">PEMBANGUNAN</span>
+              BERITA <span className="text-gold-gradient">PUTR</span>
             </h2>
+            <p className="text-[11px] text-gray-500 mt-1">Kabar dan dokumentasi terbaru</p>
           </div>
         </div>
 
