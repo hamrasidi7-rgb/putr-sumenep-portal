@@ -1,4 +1,5 @@
-import { AlertTriangle, ChevronRight } from 'lucide-react'
+import Image from 'next/image'
+import { ChevronRight } from 'lucide-react'
 import { pengaduanCategories } from '@/data/putr'
 
 export default function PengaduanSection() {
@@ -6,12 +7,17 @@ export default function PengaduanSection() {
     <section className="px-4 lg:px-0 py-2 lg:py-8">
       {/* Header row */}
       <div className="flex items-center justify-between mb-4 lg:mb-6">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.25)] flex items-center justify-center">
-            <AlertTriangle size={14} className="text-red-400" />
+        <div className="flex items-center gap-3">
+          <div className="relative w-11 h-11 flex-shrink-0 rounded-full overflow-hidden">
+            <Image
+              src="/images/chat-ai-pengaduan.jpeg"
+              alt="Logo AI Pengaduan PUTR"
+              fill
+              className="object-cover"
+            />
           </div>
           <div>
-            <h2 className="text-sm lg:text-base font-bold text-gray-900">Pengaduan</h2>
+            <h2 className="text-sm lg:text-base font-bold text-gray-900">Tanya AI Pengaduan</h2>
             <p className="text-[10px] lg:text-xs text-gray-500 hidden sm:block">
               Laporkan keluhan Anda terkait infrastruktur di lingkungan Anda mulai dari:
             </p>
