@@ -11,7 +11,7 @@ export default function PengaduanSection() {
           <img
             src="/images/robot-ai.jpeg"
             alt="Logo AI Pengaduan"
-            className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+            className="w-12 h-12 object-contain flex-shrink-0 mix-blend-multiply"
           />
           <div>
             <h2 className="text-sm lg:text-base font-bold text-white">Tanya AI Pengaduan</h2>
