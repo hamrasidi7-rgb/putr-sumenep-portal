@@ -43,9 +43,8 @@ export default function GaleriPreview() {
             <Camera size={17} className="text-[#E0A82E]" strokeWidth={1.8} />
           </div>
           <div>
-            <p className="text-[10px] text-gray-500 uppercase tracking-widest leading-none mb-0.5">Dokumentasi</p>
             <h2 className="text-base lg:text-lg font-extrabold text-white tracking-wide leading-none">
-              Galeri <span className="text-gold-gradient">Pembangunan</span>
+              GALERI <span className="text-gold-gradient">PEMBANGUNAN</span>
             </h2>
           </div>
         </div>
