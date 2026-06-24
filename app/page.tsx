@@ -5,7 +5,6 @@ import KategoriCards from '@/components/KategoriCards'
 import PengaduanSection from '@/components/PengaduanSection'
 import GaleriPreview from '@/components/GaleriPreview'
 import Footer from '@/components/Footer'
-import WhatsAppButton from '@/components/WhatsAppButton'
 
 export default function HomePage() {
   return (
@@ -21,7 +20,6 @@ export default function HomePage() {
       </main>
       <Footer />
       <BottomNav />
-      <WhatsAppButton />
     </>
   )
 }
