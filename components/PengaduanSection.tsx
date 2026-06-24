@@ -9,7 +9,7 @@ export default function PengaduanSection() {
           {/* Logo — tag img biasa agar path tidak diproses next/image */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/chat-ai-pengaduan.jpeg"
+            src="/images/robot-ai.jpeg"
             alt="Logo AI Pengaduan"
             className="w-12 h-12 rounded-full object-cover flex-shrink-0"
           />
