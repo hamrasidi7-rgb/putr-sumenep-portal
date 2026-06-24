@@ -62,9 +62,9 @@ export const quickTopics: QuickTopic[] = [
   { id: 'konstruksi', label: 'Jasa Konstruksi', Icon: HardHat, color: '#F97316', href: '#' },
   { id: 'lab', label: 'Laboratorium & Peralatan', Icon: FlaskConical, color: '#F472B6', href: '#' },
   { id: 'statistik', label: 'Statistik PUTR', Icon: BarChart3, color: '#FBBF24', href: '#' },
-  { id: 'galeri', label: 'Galeri Pembangunan', Icon: Camera, color: '#06B6D4', href: '#' },
+  { id: 'galeri', label: 'Galeri Pembangunan', Icon: Camera, color: '#06B6D4', href: '/galeri' },
   { id: 'regulasi', label: 'Regulasi', Icon: FileText, color: '#A3E635', href: '#' },
-  { id: 'peta', label: 'Peta Infrastruktur', Icon: Map, color: '#E879F9', href: '#' },
+  { id: 'peta', label: 'Peta Infrastruktur', Icon: Map, color: '#E879F9', href: '/peta' },
 ]
 
 export const pengaduanCategories: PengaduanCategory[] = [
