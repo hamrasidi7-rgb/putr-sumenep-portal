@@ -1,25 +1,22 @@
-import Image from 'next/image'
 import { ChevronRight } from 'lucide-react'
-import { pengaduanCategories } from '@/data/putr'
 
 export default function PengaduanSection() {
   return (
     <section className="px-4 lg:px-0 py-2 lg:py-8">
       {/* Header row */}
-      <div className="flex items-center justify-between mb-4 lg:mb-6">
+      <div className="flex items-center justify-between mb-4 lg:mb-5">
         <div className="flex items-center gap-3">
-          <div className="relative w-11 h-11 flex-shrink-0 rounded-full overflow-hidden">
-            <Image
-              src="/images/chat-ai-pengaduan.jpeg"
-              alt="Logo AI Pengaduan PUTR"
-              fill
-              className="object-cover"
-            />
-          </div>
+          {/* Logo — tag img biasa agar path tidak diproses next/image */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/chat-ai-pengaduan.jpeg"
+            alt="Logo AI Pengaduan"
+            className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+          />
           <div>
-            <h2 className="text-sm lg:text-base font-bold text-gray-900">Tanya AI Pengaduan</h2>
+            <h2 className="text-sm lg:text-base font-bold text-white">Tanya AI Pengaduan</h2>
             <p className="text-[10px] lg:text-xs text-gray-500 hidden sm:block">
-              Laporkan keluhan Anda terkait infrastruktur di lingkungan Anda mulai dari:
+              Ajukan pertanyaan atau laporkan masalah infrastruktur Anda
             </p>
           </div>
         </div>
@@ -30,33 +27,18 @@ export default function PengaduanSection() {
         </button>
       </div>
 
-      {/* Description (mobile only) */}
-      <p className="text-[10px] text-gray-500 sm:hidden mb-4">
-        Laporkan keluhan terkait infrastruktur di lingkungan Anda:
-      </p>
-
-      {/* Categories grid: 3×2 mobile → 6 in a row desktop */}
-      <div className="grid grid-cols-3 lg:grid-cols-6 gap-2.5 lg:gap-3">
-        {pengaduanCategories.map(({ id, label, Icon, color, bg }) => (
-          <button
-            key={id}
-            className="
-              group card-dark p-3 lg:p-4 rounded-2xl flex flex-col items-center gap-2 text-center
-              hover:border-[rgba(224,168,46,0.35)] hover:bg-gray-50 hover:-translate-y-0.5
-              transition-all duration-200
-            "
-          >
-            <div
-              className="w-9 h-9 lg:w-11 lg:h-11 rounded-xl flex items-center justify-center transition-all group-hover:scale-110"
-              style={{ background: bg, border: `1px solid ${color}25` }}
-            >
-              <Icon size={18} style={{ color }} strokeWidth={1.8} />
-            </div>
-            <span className="text-[9px] lg:text-xs text-gray-600 group-hover:text-gray-900 leading-tight font-medium">
-              {label}
-            </span>
-          </button>
-        ))}
+      {/* Teks panduan pengganti grid kategori */}
+      <div
+        className="rounded-2xl px-4 py-4 lg:py-5"
+        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
+      >
+        <p className="text-xs lg:text-sm text-gray-400 leading-relaxed">
+          Tanyakan atau laporkan apa saja seputar infrastruktur. Misalnya:{' '}
+          <span className="text-gray-300">&ldquo;Jalan rusak di desa saya&rdquo;</span>,{' '}
+          <span className="text-gray-300">&ldquo;Lampu PJU mati di jalan X&rdquo;</span>,{' '}
+          <span className="text-gray-300">&ldquo;Drainase tersumbat&rdquo;</span>, atau{' '}
+          <span className="text-gray-300">&ldquo;Bagaimana cara mengajukan perizinan bangunan?&rdquo;</span>
+        </p>
       </div>
     </section>
   )
