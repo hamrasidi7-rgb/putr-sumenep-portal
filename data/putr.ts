@@ -153,8 +153,7 @@ export const quickChips = [
 
 export const navItems: NavItem[] = [
   { id: 'beranda', label: 'Beranda', Icon: Home, href: '/' },
-  { id: 'profil', label: 'Profil', Icon: User, href: '/profil' },
-  { id: 'pembangunan', label: 'Pembangunan', Icon: Building, href: '/pembangunan' },
-  { id: 'data', label: 'Data', Icon: Database, href: '/data' },
-  { id: 'ai-putr', label: 'AI PUTR', Icon: Bot, href: '/ai-putr' },
+  { id: 'peta', label: 'Peta', Icon: Map, href: '/peta' },
+  { id: 'galeri', label: 'Galeri', Icon: Camera, href: '/galeri' },
+  { id: 'ai-putr', label: 'AI PUTR', Icon: Bot, href: '#' },
 ]
